@@ -5,16 +5,18 @@ import {MdGroups,MdOutlineOndemandVideo,MdOutlineExpandMore} from 'react-icons/m
 import {AiOutlineShop} from 'react-icons/ai' 
 import {BsStopwatch} from 'react-icons/bs' 
 import SideBarItem from './SideBarItem'
+import { useSession } from 'next-auth/react'
 const Sidebar = () => {
+    const {data:session} = useSession();
   return (
     <div className='hidden lg:inline-flex flex-col py-2 pl-2'>
         <div className='flex items-center space-x-2 py-3 pl-4 hover:bg-gray-200 rounded-l-xl cursor-pointer'>
-            <Image src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/900px-Facebook_f_logo_%282019%29.svg.png"
+            <Image src={session?.user.image}
                 height={40}
                 width={40}
                 className="rounded-full cursor-pointer"
             />
-            <p className='hidden sm:inline-flex font-medium'> Anson Antony </p>
+            <p className='hidden sm:inline-flex font-medium'> {session?.user.name} </p>
         </div>
         <SideBarItem Icon={ImUsers} value="Friends"/>
         <SideBarItem Icon={MdGroups} value="Groups"/>
