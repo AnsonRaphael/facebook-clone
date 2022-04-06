@@ -5,24 +5,27 @@ import {FaRegCommentAlt} from 'react-icons/fa'
 import {RiShareForwardLine} from 'react-icons/ri'
 
 
-const Post = () => {
+const Post = ({post}) => {
   return (
-    <div className='flex flex-col'>
+    <div className='flex flex-col' key={post.id}>
         <div className='bg-white mt-6 rounded-md p-4'>
-            <div className='flex items-center'>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/900px-Facebook_f_logo_%282019%29.svg.png"
+            <div className='flex items-center space-x-2'>
+                <img src={post.profilePic}
                 className='rounded-full w-10 h-10' />
                 <div>
-                    <p className='font-medium'>Anson Antony</p>
-                    <p className='text-xs text-gray-500'>{new Date(2012, 1, 20).toString()}</p>
+                    <p className='font-medium'>{post.name}</p>
+                    <p className='text-xs text-gray-500'>{post.timeStamp}</p>
                 </div>
             </div>
-            <p className='py-4'>Lorem Ipsum</p>            
+            <p className='py-4'>{post.post}</p>            
         </div> 
         {/* if any image */}
-        <div className='relative h-60 md:h-96 bg-white'>
-            <Image src="https://images.pexels.com/photos/8668602/pexels-photo-8668602.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"  layout='fill' objectFit='cover'/>
-        </div>
+        {post.image!=null&&(
+            <div className='relative h-60 md:h-96 bg-white'>
+             <Image src={post.image}  layout='fill' objectFit='cover'/>
+            </div>
+        )}
+        
         {/* footer post */}
         <div className='flex items-center justify-center bg-white p-2'>
             <div className='flex items-center space-x-1 hover:bg-gray-100 flex-grow justify-center p-2 rounded-xl cursor-pointer'>

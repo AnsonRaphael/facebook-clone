@@ -6,14 +6,17 @@ import {IoMdPhotos} from 'react-icons/io'
 import {BsEmojiSmile} from 'react-icons/bs'
 import {RiDeleteBin6Line} from 'react-icons/ri'
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { addPost } from '../public/src/features/postSlice';
 
 
 const CreatePost = () => {
-    const FACEBOOK_CLONE_ENDPOINT="";
+    const FACEBOOK_CLONE_ENDPOINT="http://localhost:8080/api/v1/post";
     const {data:session} = useSession();
     const inputRef=useRef(null);
     const hiddenFileInputRef=useRef(null);
     const[imageToPost,setImageToPost] = useState(null);
+    const dispatch = useDispatch();
     const handleClick = ()=>{
         hiddenFileInputRef.current.click();
     }
@@ -43,6 +46,9 @@ const CreatePost = () => {
         })
         .then((response)=>{
             inputRef.current.value="";
+            // will come in action
+            
+            dispatch(addPost(response.data)); 
             removeImage();
         })
         .catch((error)=>{
